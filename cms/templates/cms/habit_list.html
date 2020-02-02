@@ -1,0 +1,34 @@
+{% extends "cms/base.html" %}
+
+{% block title %}書籍の一覧{% endblock title %}
+
+{% block content %}
+    <h4 class="mt-4 border-bottom">習慣の一覧</h4>
+    <a href="{% url 'cms:habit_add' %}" class="btn btn-primary btn-sm my-3">追加</a>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">習慣名</th>
+          <th scope="col">目標</th>
+          <th scope="col">スタート日付</th>
+          <th scope="col">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for habit in habits %}
+        <tr>
+          <th scope="row">{{ habit.id }}</th>
+          <td>{{ habit.habit_name }}</td>
+          <td>{{ habit.goal }}</td>
+          <td>{{ habit.start_date }}</td>
+          <td>
+            <a href="{% url 'cms:habit_mod' habit_id=habit.id %}" class="btn btn-outline-primary btn-sm">修正</a>
+            <a href="{% url 'cms:habit_del' habit_id=habit.id %}" class="btn btn-outline-danger btn-sm">削除</a>
+            <a href="{% url 'cms:record_list' habit_id=habit.id %}" class="btn btn-outline-info btn-sm">感想の一覧</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock content %}
